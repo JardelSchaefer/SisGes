@@ -7,8 +7,8 @@ package br.senai.sc.sisges.jframe;
 
 import br.senai.sc.sisloj.views.CadastroCliente;
 import br.senai.sc.sisloj.views.ListagemCliente;
-import br.senai.sc.sisloj.views.PainelAmarelo;
-import br.senai.sc.sisloj.views.PainelRosa;
+import br.senai.sc.sisloj.views.CadastroDeEquipe;
+import br.senai.sc.sisloj.views.ListagemEquipe;
 import br.senai.sc.sisloj.views.TelaLogin;
 import java.awt.CardLayout;
 import java.sql.SQLException;
@@ -27,21 +27,21 @@ public class SisLojFrame extends javax.swing.JFrame {
         initComponents();
 
         //Cria os componentes
-        PainelRosa pRosa = new PainelRosa();
-        PainelAmarelo pAmarelo = new PainelAmarelo();
-        CadastroCliente cadCli = new CadastroCliente();
-        TelaLogin tp = new TelaLogin();
+        CadastroDeEquipe cEqu = new CadastroDeEquipe();
+        ListagemEquipe lEqu = new ListagemEquipe();
+        CadastroCliente cadCol = new CadastroCliente();
+        TelaLogin tl = new TelaLogin();
         
 
-        painelPrincipal.add(pRosa, "painelRosa");
-        painelPrincipal.add(pAmarelo, "painelAmarelo");
-        painelPrincipal.add(cadCli, "cadastroCliente");
-        painelPrincipal.add(tp, "telaPadrao");
+        painelPrincipal.add(cEqu, "cadastroEquipe");
+        painelPrincipal.add(lEqu, "painelAmarelo");
+        painelPrincipal.add(cadCol, "cadastroColaborador");
+        painelPrincipal.add(tl, "telaLogin");
         
 
         //Chamar a tela padrão aqui
         CardLayout cl = (CardLayout) painelPrincipal.getLayout();
-        cl.show(painelPrincipal, "telaPadrao");
+        cl.show(painelPrincipal, "telaLogin");
         
         this.setExtendedState(MAXIMIZED_BOTH);
 
@@ -149,7 +149,7 @@ public class SisLojFrame extends javax.swing.JFrame {
 
     private void menCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCadastrarClienteActionPerformed
         CardLayout cl = (CardLayout) painelPrincipal.getLayout();
-        cl.show(painelPrincipal, "cadastroCliente");
+        cl.show(painelPrincipal, "cadastroColaborador");
     }//GEN-LAST:event_menCadastrarClienteActionPerformed
 
     private void menListarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menListarClienteActionPerformed
@@ -162,12 +162,12 @@ public class SisLojFrame extends javax.swing.JFrame {
 
     private void menCadastrarEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCadastrarEquipeActionPerformed
         CardLayout cl = (CardLayout) painelPrincipal.getLayout();
-        cl.show(painelPrincipal, "painelRosa");
+        cl.show(painelPrincipal, "cadastroEquipe");
     }//GEN-LAST:event_menCadastrarEquipeActionPerformed
 
     private void menListarEquipesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menListarEquipesActionPerformed
         CardLayout cl = (CardLayout) painelPrincipal.getLayout();
-        cl.show(painelPrincipal, "painelAmarelo");// TODO add your handling code here:
+        cl.show(painelPrincipal, "lsitagemEquipe");// TODO add your handling code here:
     }//GEN-LAST:event_menListarEquipesActionPerformed
 
     private void menListarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menListarProdutoActionPerformed
