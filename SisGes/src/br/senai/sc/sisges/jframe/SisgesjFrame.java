@@ -5,11 +5,9 @@
  */
 package br.senai.sc.sisges.jframe;
 
-import br.senai.sc.sisloj.views.CadastroCliente;
-import br.senai.sc.sisloj.views.ListagemCliente;
-import br.senai.sc.sisloj.views.PainelAmarelo;
-import br.senai.sc.sisloj.views.PainelRosa;
-import br.senai.sc.sisloj.views.TelaLogin;
+import br.senai.sc.sisges.views.CadastroColaborador;
+import br.senai.sc.sisges.views.ListagemColaborador;
+import br.senai.sc.sisges.views.TelaLogin;
 import java.awt.CardLayout;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -18,24 +16,20 @@ import javax.swing.JOptionPane;
  *
  * @author Aluno
  */
-public class SisLojFrame extends javax.swing.JFrame {
+public class SisgesjFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form SisLojFrame
      */
-    public SisLojFrame() {
+    public SisgesjFrame() {
         initComponents();
 
         //Cria os componentes
-        PainelRosa pRosa = new PainelRosa();
-        PainelAmarelo pAmarelo = new PainelAmarelo();
-        CadastroCliente cadCli = new CadastroCliente();
+        CadastroColaborador cadCol = new CadastroColaborador();
         TelaLogin tp = new TelaLogin();
         
 
-        painelPrincipal.add(pRosa, "painelRosa");
-        painelPrincipal.add(pAmarelo, "painelAmarelo");
-        painelPrincipal.add(cadCli, "cadastroCliente");
+        painelPrincipal.add(cadCol, "cadastroColaborador");
         painelPrincipal.add(tp, "telaPadrao");
         
 
@@ -149,25 +143,25 @@ public class SisLojFrame extends javax.swing.JFrame {
 
     private void menCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCadastrarClienteActionPerformed
         CardLayout cl = (CardLayout) painelPrincipal.getLayout();
-        cl.show(painelPrincipal, "cadastroCliente");
+        cl.show(painelPrincipal, "cadastroColaborador");
     }//GEN-LAST:event_menCadastrarClienteActionPerformed
 
     private void menListarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menListarClienteActionPerformed
-        ListagemCliente lc = new ListagemCliente();
-        painelPrincipal.add(lc, "listaClientes");
+        ListagemColaborador lc = new ListagemColaborador();
+        painelPrincipal.add(lc, "listaColaboradores");
         
         CardLayout cl = (CardLayout) painelPrincipal.getLayout(); 
-        cl.show(painelPrincipal, "listaClientes");
+        cl.show(painelPrincipal, "listaColaboradores");
     }//GEN-LAST:event_menListarClienteActionPerformed
 
     private void menCadastrarEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCadastrarEquipeActionPerformed
         CardLayout cl = (CardLayout) painelPrincipal.getLayout();
-        cl.show(painelPrincipal, "painelRosa");
+        
     }//GEN-LAST:event_menCadastrarEquipeActionPerformed
 
     private void menListarEquipesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menListarEquipesActionPerformed
         CardLayout cl = (CardLayout) painelPrincipal.getLayout();
-        cl.show(painelPrincipal, "painelAmarelo");// TODO add your handling code here:
+        
     }//GEN-LAST:event_menListarEquipesActionPerformed
 
     private void menListarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menListarProdutoActionPerformed
@@ -191,21 +185,23 @@ public class SisLojFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SisLojFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SisgesjFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SisLojFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SisgesjFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SisLojFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SisgesjFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SisLojFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SisgesjFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SisLojFrame().setVisible(true);
+                new SisgesjFrame().setVisible(true);
             }
         });
     }

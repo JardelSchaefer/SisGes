@@ -91,14 +91,14 @@ public class ColaboradorDao extends ConnectionFactory {
 
     }
 
-    public List<Colaborador> listarClientes() throws SQLException {
+    public List<Colaborador> listarColaboradores() throws SQLException {
         String sql = "select * from colaborador";
-        List<Colaborador> clientes = null;
+        List<Colaborador> colaboradores = null;
 
         try (PreparedStatement st = this.con.prepareStatement(sql)) {
             ResultSet rs = st.executeQuery();
 
-            clientes = new ArrayList<Colaborador>();
+            colaboradores = new ArrayList<Colaborador>();
 
             while (rs.next()) {
                 Colaborador c = new Colaborador();
@@ -117,7 +117,7 @@ public class ColaboradorDao extends ConnectionFactory {
                 c.setUltAcCol(rs.getString("ultAcCol"));
                 c.setEquCol(rs.getString("equCol"));
                 c.setDddCol(rs.getInt("dddCol"));
-                clientes.add(c);
+                colaboradores.add(c);
             }
 
             rs.close();
@@ -126,7 +126,7 @@ public class ColaboradorDao extends ConnectionFactory {
         }
 
         this.con.close();
-        return clientes;
+        return colaboradores;
     }
 
     public Colaborador getColaborador(int idcol) throws SQLException {

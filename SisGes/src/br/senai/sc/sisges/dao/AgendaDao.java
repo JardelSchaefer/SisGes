@@ -86,7 +86,7 @@ public class AgendaDao extends ConnectionFactory{
 
     }
     
-    public List<Agenda> listarClientes() throws SQLException {
+    public List<Agenda> listarTarefas() throws SQLException {
         String sql = "select * from agenda";
         List<Agenda> agendas = null;
 
