@@ -5,13 +5,18 @@
  */
 package br.senai.sc.sisges.views;
 
+import br.senai.sc.sisges.dao.ColaboradorDao;
 import br.senai.sc.sisges.dao.EquipeDao;
+import br.senai.sc.sisges.modelo.Colaborador;
 import br.senai.sc.sisges.modelo.Equipe;
-import br.senai.sc.sisloj.views.CadastroCliente;
+import java.awt.CardLayout;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,11 +24,44 @@ import javax.swing.JOptionPane;
  */
 public class ListagemEquipe extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ListagemEquipe
-     */
+    private CardLayout cl;
+    private int codEqu;
+
     public ListagemEquipe() {
         initComponents();
+
+        this.add(painelListagem, "painelListagem");
+        this.add(painelEdicao, "painelEdicao");
+
+        this.cl = (CardLayout) this.getLayout();
+        this.cl.show(this, "painelListagem");
+    }
+
+    private void popularTabela() {
+        EquipeDao cl = new EquipeDao();
+        List<Equipe> listaEquipe;
+
+        try {
+            listaEquipe = cl.listarEquipe();
+
+            DefaultTableModel model = (DefaultTableModel) tblEquipe.getModel();
+            List<Object> lista = new ArrayList<Object>();
+
+            for (int i = 0; i < listaEquipe.size(); i++) {
+                Equipe equ = listaEquipe.get(i);
+                lista.add(new Object[]{equ.getIdEqu(), equ.getNomEqu(),});
+            }
+
+            for (int idx = 0; idx < lista.size(); idx++) {
+                model.addRow((Object[]) lista.get(idx));
+            }
+
+        } catch (SQLException ex) {
+            String msg = "Ocorreu um erro ao obter as equipes do banco de dados!";
+            JOptionPane.showMessageDialog(null, msg);
+            Logger.getLogger(ListagemEquipe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -48,7 +86,7 @@ public class ListagemEquipe extends javax.swing.JPanel {
         btnListarColaboradores = new javax.swing.JButton();
         painelListagem = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblColaborador = new javax.swing.JTable();
+        tblEquipe = new javax.swing.JTable();
 
         jTextField1.setText("jTextField1");
 
@@ -77,6 +115,11 @@ public class ListagemEquipe extends javax.swing.JPanel {
         });
 
         btnListarColaboradores.setText("Listar colaboradores");
+        btnListarColaboradores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarColaboradoresActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelEdicaoLayout = new javax.swing.GroupLayout(painelEdicao);
         painelEdicao.setLayout(painelEdicaoLayout);
@@ -132,7 +175,7 @@ public class ListagemEquipe extends javax.swing.JPanel {
 
         add(painelEdicao, "card2");
 
-        tblColaborador.setModel(new javax.swing.table.DefaultTableModel(
+        tblEquipe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -155,12 +198,12 @@ public class ListagemEquipe extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblColaborador.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblEquipe.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblColaboradorMouseClicked(evt);
+                tblEquipeMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblColaborador);
+        jScrollPane1.setViewportView(tblEquipe);
 
         javax.swing.GroupLayout painelListagemLayout = new javax.swing.GroupLayout(painelListagem);
         painelListagem.setLayout(painelListagemLayout);
@@ -181,34 +224,67 @@ public class ListagemEquipe extends javax.swing.JPanel {
         Equipe Equ = new Equipe();
         Equ.setNomEqu(cpNomeEquipe.getText());
         Equ.setDesEqu(cpDescricaoEquipe.getText());
-        
+
         EquipeDao equDao = new EquipeDao();
         try {
             equDao.inserir(Equ);
             JOptionPane.showMessageDialog(null, "Dados da equipe atualizado com sucesso!");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Falha ao atualizarn dados da equipe!");
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Falha ao atualizar dados da equipe!");
+            Logger.getLogger(CadastroColaborador.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void limparTabela() {
+        ((DefaultTableModel) tblEquipe.getModel()).setNumRows(0);
+        tblEquipe.updateUI();
+    }
 
     private void cpNomeEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpNomeEquipeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cpNomeEquipeActionPerformed
 
-    private void tblColaboradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblColaboradorMouseClicked
-        int linha = tblColaborador.getSelectedRow();
+    private void preencherFormulario(int codigoEquipe) {
 
-        if (linha != -1){
+        EquipeDao equipe = new EquipeDao();
 
-            String codigo = tblColaborador.getValueAt(linha, 0).toString();
-            int codigoCliente = Integer.parseInt(codigo);
-            this.preencherFormulario(codigoCliente);
-            this.cl.show(this,"painelEdicao");
+        try {
+            Equipe equ = equipe.getEquipe(codigoEquipe);
+            cpNomeEquipe.setText(equ.getNomEqu());
+            cpDescricaoEquipe.setText(equ.getDesEqu());
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ListagemColaborador.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }//GEN-LAST:event_tblColaboradorMouseClicked
+        this.codEqu = codigoEquipe;
+
+    }
+
+    private void tblEquipeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEquipeMouseClicked
+        int linha = tblEquipe.getSelectedRow();
+
+        if (linha != -1) {
+
+            String codigo = tblEquipe.getValueAt(linha, 0).toString();
+            int codigoEquipe = Integer.parseInt(codigo);
+            this.preencherFormulario(codigoEquipe);
+            this.cl.show(this, "painelEdicao");
+        }
+
+    }//GEN-LAST:event_tblEquipeMouseClicked
+
+    private void btnListarColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarColaboradoresActionPerformed
+
+        ListagemColaborador lc = new ListagemColaborador();
+        this.add(painelListagem, "painelListagem");
+        this.add(painelEdicao, "painelEdicao");
+
+        this.cl = (CardLayout) this.getLayout();
+        this.cl.show(this, "painelListagem");
+
+    }//GEN-LAST:event_btnListarColaboradoresActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -225,6 +301,6 @@ public class ListagemEquipe extends javax.swing.JPanel {
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JPanel painelEdicao;
     private javax.swing.JPanel painelListagem;
-    private javax.swing.JTable tblColaborador;
+    private javax.swing.JTable tblEquipe;
     // End of variables declaration//GEN-END:variables
 }

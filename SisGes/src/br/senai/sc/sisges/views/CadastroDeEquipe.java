@@ -7,7 +7,6 @@ package br.senai.sc.sisges.views;
 
 import br.senai.sc.sisges.dao.EquipeDao;
 import br.senai.sc.sisges.modelo.Equipe;
-import br.senai.sc.sisloj.views.CadastroCliente;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -132,7 +131,7 @@ public class CadastroDeEquipe extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Equipe inserida com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Falha ao inserir equipe!");
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastroDeEquipe.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         

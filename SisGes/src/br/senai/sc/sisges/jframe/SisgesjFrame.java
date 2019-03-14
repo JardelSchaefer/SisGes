@@ -7,8 +7,7 @@ package br.senai.sc.sisges.jframe;
 
 import br.senai.sc.sisges.views.CadastroColaborador;
 import br.senai.sc.sisges.views.ListagemColaborador;
-import br.senai.sc.sisloj.views.CadastroDeEquipe;
-import br.senai.sc.sisloj.views.ListagemEquipe;
+import br.senai.sc.sisges.views.ListagemEquipe;
 import br.senai.sc.sisges.views.TelaLogin;
 import java.awt.CardLayout;
 import java.sql.SQLException;
@@ -150,10 +149,10 @@ public class SisgesjFrame extends javax.swing.JFrame {
 
     private void menListarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menListarClienteActionPerformed
         ListagemColaborador lc = new ListagemColaborador();
-        painelPrincipal.add(lc, "listaColaboradores");
+        painelPrincipal.add(lc, "listaColaborador");
         
         CardLayout cl = (CardLayout) painelPrincipal.getLayout(); 
-        cl.show(painelPrincipal, "listaColaboradores");
+        cl.show(painelPrincipal, "listaColaborador");
     }//GEN-LAST:event_menListarClienteActionPerformed
 
     private void menCadastrarEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCadastrarEquipeActionPerformed
@@ -162,7 +161,12 @@ public class SisgesjFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menCadastrarEquipeActionPerformed
 
     private void menListarEquipesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menListarEquipesActionPerformed
-        CardLayout cl = (CardLayout) painelPrincipal.getLayout();
+        ListagemEquipe le = new ListagemEquipe();
+        painelPrincipal.add(le, "listaEquipe");
+        
+        CardLayout cl = (CardLayout) painelPrincipal.getLayout(); 
+        cl.show(painelPrincipal, "listaEquipe");
+        
         
     }//GEN-LAST:event_menListarEquipesActionPerformed
 
