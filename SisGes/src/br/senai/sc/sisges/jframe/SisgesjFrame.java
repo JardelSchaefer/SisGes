@@ -7,6 +7,8 @@ package br.senai.sc.sisges.jframe;
 
 import br.senai.sc.sisges.views.CadastroColaborador;
 import br.senai.sc.sisges.views.ListagemColaborador;
+import br.senai.sc.sisloj.views.CadastroDeEquipe;
+import br.senai.sc.sisloj.views.ListagemEquipe;
 import br.senai.sc.sisges.views.TelaLogin;
 import java.awt.CardLayout;
 import java.sql.SQLException;
